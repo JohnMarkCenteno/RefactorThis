@@ -1,6 +1,6 @@
-﻿namespace RefactorThis.Domain.Messages
+﻿namespace RefactorThis.Domain.Payments
 {
-    public static class InvoicePaymentMessages
+    public static class PaymentMessages
     {
         public const string NoPaymentNeeded = "No payment needed.";
         public const string InvoiceAlreadyFullyPaid = "Invoice was already fully paid.";

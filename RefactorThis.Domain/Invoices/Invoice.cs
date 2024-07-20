@@ -1,11 +1,13 @@
+using RefactorThis.Domain.Payments;
+using RefactorThis.Infrastructure.Enums;
 using System.Collections.Generic;
 
-namespace RefactorThis.Persistence
+namespace RefactorThis.Domain.Invoices
 {
-	public class Invoice
+    public class Invoice
 	{
-		private readonly InvoiceRepository _repository;
-		public Invoice( InvoiceRepository repository )
+		private readonly IInvoiceRepository _repository;
+		public Invoice(IInvoiceRepository repository )
 		{
 			_repository = repository;
 		}
@@ -21,11 +23,5 @@ namespace RefactorThis.Persistence
 		public List<Payment> Payments { get; set; }
 		
 		public InvoiceType Type { get; set; }
-	}
-
-	public enum InvoiceType
-	{
-		Standard,
-		Commercial
-	}
+	}	
 }

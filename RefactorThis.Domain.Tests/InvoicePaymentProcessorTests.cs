@@ -1,7 +1,10 @@
 ﻿using NUnit.Framework;
-using RefactorThis.Domain.Messages;
-using RefactorThis.Domain.Strategies.Payment;
-using RefactorThis.Persistence;
+using RefactorThis.Application.Invoices;
+using RefactorThis.Application.Invoices.Strategies.Payments;
+using RefactorThis.Domain.Invoices;
+using RefactorThis.Domain.Payments;
+using RefactorThis.Infrastructure.Enums;
+using RefactorThis.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +14,7 @@ namespace RefactorThis.Domain.Tests
     public class InvoicePaymentProcessorTests
     {
         private Dictionary<InvoiceType, IInvoicePaymentStrategy> _paymentStrategies;
-        private InvoiceRepository _repo;
+        private IInvoiceRepository _repo;
 
         [SetUp]
         public void SetUp()
@@ -53,7 +56,7 @@ namespace RefactorThis.Domain.Tests
                 failureMessage = e.Message;
             }
 
-            Assert.AreEqual(InvoicePaymentMessages.NoMatchingInvoiceForPayment, failureMessage);
+            Assert.AreEqual(PaymentMessages.NoMatchingInvoiceForPayment, failureMessage);
         }
 
         [Test]
@@ -64,7 +67,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment();
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.NoPaymentNeeded, result);
+            Assert.AreEqual(PaymentMessages.NoPaymentNeeded, result);
         }
 
         [Test]
@@ -75,7 +78,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment();
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.InvoiceAlreadyFullyPaid, result);
+            Assert.AreEqual(PaymentMessages.InvoiceAlreadyFullyPaid, result);
         }
 
         [Test]
@@ -86,7 +89,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment { Amount = 6 };
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.PaymentGreaterThanPartialAmountRemaining, result);
+            Assert.AreEqual(PaymentMessages.PaymentGreaterThanPartialAmountRemaining, result);
         }
 
         [Test]
@@ -97,7 +100,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment { Amount = 6 };
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.PaymentGreaterThanInvoiceAmount, result);
+            Assert.AreEqual(PaymentMessages.PaymentGreaterThanInvoiceAmount, result);
         }
 
         [Test]
@@ -108,7 +111,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment { Amount = 5 };
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.FinalPartialPaymentReceivedFullyPaid, result);
+            Assert.AreEqual(PaymentMessages.FinalPartialPaymentReceivedFullyPaid, result);
         }
 
         [Test]
@@ -119,7 +122,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment { Amount = 10 };
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.InvoiceAlreadyFullyPaid, result);
+            Assert.AreEqual(PaymentMessages.InvoiceAlreadyFullyPaid, result);
         }
 
         [Test]
@@ -130,7 +133,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment { Amount = 1 };
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.AnotherPartialPaymentReceivedStillNotFullyPaid, result);
+            Assert.AreEqual(PaymentMessages.AnotherPartialPaymentReceivedStillNotFullyPaid, result);
         }
 
         [Test]
@@ -141,7 +144,7 @@ namespace RefactorThis.Domain.Tests
             var payment = new Payment { Amount = 1 };
             var result = paymentProcessor.ProcessPayment(payment);
 
-            Assert.AreEqual(InvoicePaymentMessages.InvoiceIsNowPartiallyPaid, result);
+            Assert.AreEqual(PaymentMessages.InvoiceIsNowPartiallyPaid, result);
         }
     }
 }

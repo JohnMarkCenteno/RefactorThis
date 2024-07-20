@@ -49,17 +49,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RefactorThis.Domain\RefactorThis.Domain.csproj">
-      <Project>{5310b2fe-e26d-414e-b656-1f74c5a70368}</Project>
-      <Name>RefactorThis.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RefactorThis.Persistence\RefactorThis.Persistence.csproj">
-      <Project>{33cdc796-ff75-449c-9637-59c2efc46361}</Project>
-      <Name>RefactorThis.Persistence</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\RefactorThis.Application\RefactorThis.Application.csproj">
+      <Project>{88e99257-31b2-4886-a152-00fd93be0307}</Project>
+      <Name>RefactorThis.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RefactorThis.Domain\RefactorThis.Domain.csproj">
+      <Project>{5310B2FE-E26D-414E-B656-1F74C5A70368}</Project>
+      <Name>RefactorThis.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RefactorThis.Infrastructure\RefactorThis.Infrastructure.csproj">
+      <Project>{A76223A6-8F3A-4D88-926B-BF8B5D4D955F}</Project>
+      <Name>RefactorThis.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RefactorThis.Persistence\RefactorThis.Persistence.csproj">
+      <Project>{50F3F93C-6688-4B4B-8B30-3BDF6FA4485F}</Project>
+      <Name>RefactorThis.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
